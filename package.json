@@ -30,7 +30,7 @@
   "homepage": "https://github.com/platformatic/python#readme",
   "dependencies": {
     "@fastify/static": "^8.2.0",
-    "@platformatic/python-node": "github:platformatic/python-node#test-improvements",
+    "@platformatic/python-node": "github:platformatic/python-node",
     "@platformatic/service": "^2.63.3",
     "json-schema-to-typescript": "^15.0.4"
   },
