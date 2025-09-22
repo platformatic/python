@@ -31,7 +31,7 @@
   "dependencies": {
     "@fastify/static": "^8.2.0",
     "@platformatic/python-node": "github:platformatic/python-node",
-    "@platformatic/service": "^2.63.3",
+    "@platformatic/service": "^3.0.0",
     "json-schema-to-typescript": "^15.0.4"
   },
   "devDependencies": {
