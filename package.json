@@ -40,6 +40,6 @@
     "eslint": "^9.26.0",
     "form-auto-content": "^3.2.1",
     "neostandard": "^0.12.1",
-    "platformatic": "^2.63.3"
+    "platformatic": "^3.0.0"
   }
 }
