@@ -8,10 +8,6 @@ on:
       - main
       - 'releases/**'
 
-env:
-  CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
-  # GIT_SSH_COMMAND: 'ssh -o UserKnownHostsFile=/github/home/.ssh/known_hosts -o StrictHostKeyChecking=yes'
-
 jobs:
   ci:
     name: CI - Node.js ${{ matrix.node-version }} & Python ${{ matrix.python-version }}
@@ -19,7 +15,6 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - '20'
           - '22'
           - '24'
         python-version:
@@ -38,40 +33,23 @@ jobs:
         with:
           ssh-private-key: |
             ${{ secrets.SSH_PRIVATE_KEY }}
-            ${{ secrets.HTTP_HANDLER_ACCESS_TOKEN }}
-            ${{ secrets.HTTP_REWRITER_ACCESS_TOKEN }}
-      - uses: actions/setup-node@v5
-        with:
-          node-version: ${{ matrix.node-version }}
       - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
-      - uses: actions/cache@v4
-        with:
-          path: ~/.pnpm-store
-          key: node-modules-${{ hashFiles('package.json') }}
       - uses: pnpm/action-setup@v4
         with:
           version: latest
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - name: Authenticate with private NPM package
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.PYTHON_NODE_NPM_TOKEN }}" > ~/.npmrc
       - name: Install dependencies
         run: pnpm install
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: stable
-      # TODO: replace with `pnpm install` when using published dependency
-      - name: Build python-node manually
-        run: |
-          # Configure git to use SSH host aliases for private repos (needed by cargo)
-          git config --global url."ssh://git@github.com-http-handler/platformatic/http-handler".insteadOf "ssh://git@github.com/platformatic/http-handler"
-          git config --global url."ssh://git@github.com-http-handler/platformatic/http-handler.git".insteadOf "ssh://git@github.com/platformatic/http-handler.git"
-          git config --global url."ssh://git@github.com-http-rewriter/platformatic/http-rewriter".insteadOf "ssh://git@github.com/platformatic/http-rewriter"
-          git config --global url."ssh://git@github.com-http-rewriter/platformatic/http-rewriter.git".insteadOf "ssh://git@github.com/platformatic/http-rewriter.git"
-
-          cd node_modules/@platformatic/python-node
-          pnpm install --ignore-scripts
-          pnpm run build
-          pnpm run build:wasm
-          pnpm run build:fix
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PYTHON_NODE_NPM_TOKEN }}
       - name: Run Full Test Suite
         shell: bash
         run: pnpm test
