@@ -1,0 +1,25 @@
+{
+  "name": "@platformatic/python",
+  "version": "0.0.1",
+  "description": "Integration of Python with Wattpm",
+  "homepage": "https://github.com/platformatic/python#readme",
+  "license": "Apache-2.0",
+  "author": "Platformatic Inc. <oss@platformatic.dev> (https://platformatic.dev)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/platformatic/python.git"
+  },
+  "bugs": {
+    "url": "https://github.com/platformatic/python/issues"
+  },
+  "keywords": [
+    "wattpm",
+    "thread",
+    "python"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "restricted",
+    "scope": "@platformatic"
+  }
+}
