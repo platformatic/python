@@ -16,7 +16,7 @@ on:
 jobs:
   release-npm:
     runs-on: ubuntu-latest
-    environment: main
+    environment: npm
     permissions:
       contents: write
       id-token: write
@@ -27,6 +27,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          registry-url: 'https://registry.npmjs.org'
       - name: Restore cached dependencies
         uses: actions/cache@v4
         with:
@@ -40,17 +41,18 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.PYTHON_NODE_NPM_TOKEN }}" > ~/.npmrc
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - name: Bump version and push commit
+      - name: Bump version and commit
         run: |
           pnpm version ${{ inputs.version }} --no-git-tag-version
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git commit -a -m "Bumped v${{ inputs.version }}"
-          git push origin HEAD:${{ github.ref }}
-      - name: Publish new version
-        run: |
-          npm install npm -g
-          npm publish --tag ${{ inputs.prerelease == true && 'next' || 'latest' }}
+      - run: npm install -g npm@latest
+      - run: npm publish --tag ${{ inputs.prerelease == true && 'next' || 'latest' }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Push release commit if publish succeeded
+        run: git push origin HEAD:${{ github.ref }}
       - name: Create release notes
         run: |
           npx @matteo.collina/release-notes -a ${{ secrets.GITHUB_TOKEN }} -t v${{ inputs.version }} -r ${{ github.repository }} ${{ github.event.inputs.prerelease == 'true' && '-p' || '' }} -c ${{ github.ref }}
