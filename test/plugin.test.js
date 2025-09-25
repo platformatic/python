@@ -1,37 +1,33 @@
-import { buildServer } from '@platformatic/service'
-import { randomUUID } from 'node:crypto'
-import { once } from 'node:events'
-import { resolve, join } from 'node:path'
+import formAutoContent from 'form-auto-content'
+import { join } from 'node:path'
 import { test } from 'node:test'
-import { stackable } from '../lib/index.js'
-import formAutoContet from 'form-auto-content'
+import { create } from '../lib/index.js'
 
-async function startStackable (t, docroot = join(import.meta.dirname, './fixtures/hello'), opts = {}) {
+async function createApplication (t, docroot = join(import.meta.dirname, './fixtures/hello'), opts = {}) {
   const config = {
-    $schema: '../../schema.json',
-    module: '../../lib/index.js',
     python: {
       docroot,
       appTarget: 'main:app'
     },
-    port: 0,
     server: {
+      port: 0,
       logger: {
         level: 'fatal'
       }
     }
   }
 
-  const server = await buildServer(config, stackable)
+  const server = await create(import.meta.dirname, config)
   t.after(async () => {
     await server.close()
   })
 
+  await server.init()
   return server
 }
 
 test('Python hello world', async t => {
-  const server = await startStackable(t)
+  const server = await createApplication(t)
   const res = await server.inject('/')
 
   t.assert.deepStrictEqual(res.statusCode, 200)
@@ -39,34 +35,34 @@ test('Python hello world', async t => {
 })
 
 test('post data', async t => {
-  const server = await startStackable(t)
+  const server = await createApplication(t)
   const res = await server.inject({
     url: '/post',
     method: 'POST',
-    ...formAutoContet({
+    ...formAutoContent({
       'foo': 'bar'
     })
   })
 
   t.assert.deepStrictEqual(res.statusCode, 200)
-  t.assert.deepStrictEqual(res.json(), {
+  t.assert.deepStrictEqual(JSON.parse(res.body), {
     foo: 'bar'
   })
 })
 
 test('get all headers', async t => {
-  const server = await startStackable(t)
+  const server = await createApplication(t)
   const res = await server.inject('/headers')
 
   t.assert.deepStrictEqual(res.statusCode, 200)
-  t.assert.deepStrictEqual(res.json(), {
+  t.assert.deepStrictEqual(JSON.parse(res.body), {
     'HTTP_USER_AGENT': 'lightMyRequest',
     'HTTP_HOST': 'localhost:80'
   })
 })
 
 test('serve static files in docroot', async t => {
-  const server = await startStackable(t)
+  const server = await createApplication(t)
   const res = await server.inject('/something.txt')
 
   t.assert.deepStrictEqual(res.statusCode, 200)
@@ -74,7 +70,7 @@ test('serve static files in docroot', async t => {
 })
 
 test('404', async t => {
-  const server = await startStackable(t)
+  const server = await createApplication(t)
   const res = await server.inject('/path/to/nowhere')
 
   t.assert.deepStrictEqual(res.statusCode, 404)
