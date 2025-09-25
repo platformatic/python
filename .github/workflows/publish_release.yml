@@ -36,6 +36,8 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           version: latest
+      - name: Authenticate with private NPM package
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.PYTHON_NODE_NPM_TOKEN }}" > ~/.npmrc
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Bump version and push commit
@@ -48,7 +50,7 @@ jobs:
       - name: Publish new version
         run: |
           npm install npm -g
-          npm publish --access public --tag ${{ inputs.prerelease == true && 'next' || 'latest' }}
+          npm publish --tag ${{ inputs.prerelease == true && 'next' || 'latest' }}
       - name: Create release notes
         run: |
           npx @matteo.collina/release-notes -a ${{ secrets.GITHUB_TOKEN }} -t v${{ inputs.version }} -r ${{ github.repository }} ${{ github.event.inputs.prerelease == 'true' && '-p' || '' }} -c ${{ github.ref }}

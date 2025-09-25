@@ -39,6 +39,11 @@
     "json-schema-to-typescript": "^15.0.4",
     "neostandard": "^0.12.1"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "restricted",
+    "scope": "@platformatic"
+  },
   "engines": {
     "node": ">= 22.19.0"
   }
