@@ -43,20 +43,6 @@ jobs:
       - run: npm publish --tag ${{ inputs.prerelease == true && 'next' || 'latest' }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
-      - name: Collect npm logs
-        if: always()
-        run: |
-          mkdir -p npm-logs
-          if [ -d "$HOME/.npm/_logs" ]; then
-            cp -a "$HOME/.npm/_logs/." npm-logs/
-          fi
-      - name: Upload npm logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: npm-logs
-          path: npm-logs
-          if-no-files-found: ignore
       - name: Push release commit if publish succeeded
         run: git push origin HEAD:${{ github.ref }}
       - name: Create release notes
