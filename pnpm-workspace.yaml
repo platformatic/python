@@ -1,6 +1,7 @@
 onlyBuiltDependencies:
   - '@platformatic/python-node'
-  - '@platformatic/python-node-linux-x64-gnu'
+  - '@platformatic/python-node-darwin-arm64'
   - '@platformatic/python-node-linux-arm64-gnu'
+  - '@platformatic/python-node-linux-x64-gnu'
   - protobufjs
   - unrs-resolver
