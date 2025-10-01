@@ -12,8 +12,8 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0
       '@platformatic/python-node':
-        specifier: ^0.1.8
-        version: 0.1.8
+        specifier: ^0.1.9
+        version: 0.1.9
       '@platformatic/service':
         specifier: ^3.0.0
         version: 3.6.0(typescript@5.9.2)
@@ -459,26 +459,26 @@ packages:
     resolution: {integrity: sha512-XJCCYDTKRaWbu5LuMzKCJ/1bVU/bchoqvUEKV67ThUaAlELVEYRK7eZ9C2NWUg1IX98jRIoJ2GWBS91czE5LSQ==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/python-node-darwin-arm64@0.1.8':
-    resolution: {integrity: sha512-9Ai4il6/M9/kBnX0MWDnjVGZMUZp7wIMbLHoHVGopiAhMShU5cXY8PrCpRxgJfzk7++9niRvbDDFtXxv47npzw==}
+  '@platformatic/python-node-darwin-arm64@0.1.9':
+    resolution: {integrity: sha512-QIYVMbPcvGU4DUKJ/bhnTEPVgw7I4Vt2L98NN1l5dqeIm2Z6XGsy/Vx5VkGlDl4UfQZ+oxuuHKL3g6c6NcTtlg==}
     engines: {node: '>= 20'}
     cpu: [arm64]
     os: [darwin]
 
-  '@platformatic/python-node-darwin-x64@0.1.8':
-    resolution: {integrity: sha512-zKvPDfZE0e+BGJBsu1WTOJn53Jjo9IEGTZ76EBwfwZduF0jXabwPtSjMrj/zeZOAQ2nXvrQU4Mjj/jidfGVhmg==}
+  '@platformatic/python-node-darwin-x64@0.1.9':
+    resolution: {integrity: sha512-HQTiNJxLVjrSMdgiMZ+Ri0hHBslcQZk1Pc5ECM7XyivHKI26Qb1jKDwMSLGq2oDh3YLhOmsKkLgs4/F63r3Lvg==}
     engines: {node: '>= 20'}
     cpu: [x64]
     os: [darwin]
 
-  '@platformatic/python-node-linux-x64-gnu@0.1.8':
-    resolution: {integrity: sha512-jW8uWN9PQk9iM7tR/EA4wsFzFiqVyxJseSYfRgS7+YPkfcmQyZHnXjA2Vw+DotuQjAjeCUqFioj9PJJ728XfvQ==}
+  '@platformatic/python-node-linux-x64-gnu@0.1.9':
+    resolution: {integrity: sha512-4aV8TVthQ8/B2bdoryGfXG2hFZ9hdkabcbpaV4ZkmExoQt1J/kdK6sYImgfOue1qXS/pp+3DbPRg+WQSfy9WvQ==}
     engines: {node: '>= 20'}
     cpu: [x64]
     os: [linux]
 
-  '@platformatic/python-node@0.1.8':
-    resolution: {integrity: sha512-4M6wtGV6X9HHAkZK1v8jdwFfesDlQ7tGt8j9Z+4RvzyqZvleEZCppi3dES9KHd3GMEpg15xbA4+TwXjyYokttA==}
+  '@platformatic/python-node@0.1.9':
+    resolution: {integrity: sha512-/ASVIYFEpkd/Wdls+7WqEaB0fEpQaOjWo7xlNdOHlLUknyrjMCxLJkn1fiX7P4FzlK1AvFIFuayKpYlhAwG9zQ==}
     engines: {node: '>= 20'}
 
   '@platformatic/scalar-theme@3.6.0':
@@ -3136,20 +3136,20 @@ snapshots:
       '@platformatic/http-metrics': 0.2.1
       prom-client: 15.1.3
 
-  '@platformatic/python-node-darwin-arm64@0.1.8':
+  '@platformatic/python-node-darwin-arm64@0.1.9':
     optional: true
 
-  '@platformatic/python-node-darwin-x64@0.1.8':
+  '@platformatic/python-node-darwin-x64@0.1.9':
     optional: true
 
-  '@platformatic/python-node-linux-x64-gnu@0.1.8':
+  '@platformatic/python-node-linux-x64-gnu@0.1.9':
     optional: true
 
-  '@platformatic/python-node@0.1.8':
+  '@platformatic/python-node@0.1.9':
     optionalDependencies:
-      '@platformatic/python-node-darwin-arm64': 0.1.8
-      '@platformatic/python-node-darwin-x64': 0.1.8
-      '@platformatic/python-node-linux-x64-gnu': 0.1.8
+      '@platformatic/python-node-darwin-arm64': 0.1.9
+      '@platformatic/python-node-darwin-x64': 0.1.9
+      '@platformatic/python-node-linux-x64-gnu': 0.1.9
 
   '@platformatic/scalar-theme@3.6.0': {}
 
