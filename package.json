@@ -1,6 +1,6 @@
 {
   "name": "@platformatic/python",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Integration of Python with Wattpm",
   "homepage": "https://github.com/platformatic/python#readme",
   "license": "Apache-2.0",
