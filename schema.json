@@ -1,6 +1,6 @@
 {
-  "$id": "https://schemas.platformatic.dev/@platformatic/python/0.7.0.json",
-  "version": "0.7.0",
+  "$id": "https://schemas.platformatic.dev/@platformatic/python/0.1.3.json",
+  "version": "0.1.3",
   "title": "Platformatic Python configuration",
   "type": "object",
   "properties": {
