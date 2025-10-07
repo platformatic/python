@@ -28,11 +28,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.9.1
-        with:
-          ssh-private-key: |
-            ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
@@ -44,12 +39,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
           registry-url: https://registry.npmjs.org
-      - name: Authenticate with private NPM package
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.PYTHON_NODE_NPM_TOKEN }}" > ~/.npmrc
-      - name: Install dependencies
-        run: pnpm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.PYTHON_NODE_NPM_TOKEN }}
-      - name: Run Full Test Suite
-        shell: bash
-        run: pnpm test
+      - run: pnpm install
+      - run: pnpm test
