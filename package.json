@@ -27,7 +27,7 @@
     "postpublish": "git push origin && git push origin -f --tags"
   },
   "dependencies": {
-    "@fastify/static": "^8.2.0",
+    "@fastify/static": "^9.0.0",
     "@platformatic/python-node": "^2.0.0",
     "@platformatic/service": "^3.0.0",
     "fastify-plugin": "^5.0.0"
