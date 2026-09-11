@@ -43,5 +43,7 @@ jobs:
       - name: Push release commit if publish succeeded
         run: git push origin HEAD:${{ github.ref }}
       - name: Create release notes
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
-          npx @matteo.collina/release-notes -a ${{ secrets.GITHUB_TOKEN }} -t v${{ inputs.version }} -r ${{ github.repository }} ${{ github.event.inputs.prerelease == 'true' && '-p' || '' }} -c ${{ github.ref }}
+          npx @matteo.collina/release-notes -t v${{ inputs.version }} -r ${{ github.repository }} ${{ github.event.inputs.prerelease == 'true' && '-p' || '' }} -c ${{ github.ref }}
